@@ -30,7 +30,6 @@ patterns = {
     ,'NSV mean\?': 'NSV means non-scale victory.  See https://www.reddit.com/r/loseit/wiki/faq'
     ,'GW\?': 'GW means goal weight.  See https://www.reddit.com/r/loseit/wiki/faq'
     ,'GW mean\?': 'GW means goal weight.  See https://www.reddit.com/r/loseit/wiki/faq'
-    ,'.*smoke weed.*': 'erryday.'
 }
 
 
@@ -39,26 +38,9 @@ patterns = {
 def linkreply(bot, trigger):
     bot.reply(commands[trigger.group(1)])
 
-
 def spontaneousReply(bot, trigger):
     bot.say(patterns[trigger.match.re.pattern])
 
 # This decorates spontaneousReply for every pattern available
 for pattern in patterns.keys():
     module.rule(pattern)(spontaneousReply)
-
-
-@module.rule(".*$nickname.*")
-def stoicAction(bot, trigger):
-    if 'intent' in trigger.tags.keys() and trigger.tags['intent'] == 'ACTION':
-        bot.action("stares at " + str(trigger.nick))
-        
-
-@module.rule(".*bad bot(\W|$)")
-def whydontyouloveme(bot, trigger):
-    bot.say(":[")
-
-
-@module.rule(".*good bot(\W|$)")
-def senpaiNoticedMe(bot, trigger):
-    bot.say(":]")
